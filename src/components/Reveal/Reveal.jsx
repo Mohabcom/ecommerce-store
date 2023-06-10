@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 
-export default function Reveal({ children, className }) {
+export default function Reveal({ children, className, delay = 0.25 }) {
     let classes = 'relative overflow-hidden';
     if (className) {
         classes = classes.concat(` ${className}`);
@@ -10,13 +10,13 @@ export default function Reveal({ children, className }) {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
 
-    const mainControls = useAnimation()
+    const mainControls = useAnimation();
     useEffect(() => {
         if (isInView) {
-            mainControls.start("visible")
+            mainControls.start('visible');
         }
-    }, [isInView])
-    
+    }, [isInView]);
+
     return (
         <div ref={ref} className={classes}>
             <motion.div
@@ -26,7 +26,7 @@ export default function Reveal({ children, className }) {
                 }}
                 initial="hidden"
                 animate={mainControls}
-                transition={{ duration: 0.5, delay: 0.25 }}
+                transition={{ duration: 0.3, delay }}
             >
                 {children}
             </motion.div>
