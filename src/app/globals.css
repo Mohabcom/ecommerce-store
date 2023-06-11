@@ -19,3 +19,17 @@
 body {
   color: rgb(var(--foreground-rgb));
 }
+
+.parallax {
+  /* The image used */
+  background-image: url('../../public/discount-banner.png');
+
+  /* Full height */
+  height: 100%; 
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

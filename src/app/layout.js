@@ -1,6 +1,9 @@
+'use client';
 import Navbar from '@/components/Navbar/Navbar';
 import './globals.css';
 import { Inter } from 'next/font/google';
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
+import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -10,13 +13,23 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+    const pathname = usePathname();
     return (
         <html lang="en">
             <body className={inter.className} suppressHydrationWarning={true}>
-                <div className="w-screen h-screen overflow-x-hidden">
-                    <Navbar />
-                    {children}
-                </div>
+                <AuthProvider>
+                    {/* <div className="w-screen h-screen overflow-x-hidden bg-gray-800 text-white"> */}
+                    {pathname.includes('/seller') ? (
+                        <div className="w-screen h-screen overflow-x-hidden">
+                            {children}
+                        </div>
+                    ) : (
+                        <div className="w-screen h-screen overflow-x-hidden">
+                            <Navbar />
+                            {children}
+                        </div>
+                    )}
+                </AuthProvider>
             </body>
         </html>
     );

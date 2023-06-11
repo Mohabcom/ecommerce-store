@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     AiOutlineClose,
     AiOutlineDown,
@@ -11,6 +11,8 @@ import {
 import { RxPerson } from 'react-icons/rx';
 import { BsTelephone } from 'react-icons/bs';
 import PaddingContainer from '../PaddingContainer/PaddingContainer';
+import Reveal from '../Reveal/Reveal';
+import { signOut, useSession } from 'next-auth/react';
 
 export const categories = [
     {
@@ -40,7 +42,22 @@ export const categories = [
 ];
 
 export default function Navbar() {
+    const session = useSession();
+
     const [searchActive, setSearchActive] = useState(false);
+    const searchActiveRef = useRef();
+
+    useEffect(() => {
+        const handler = (event) => {
+            if (!searchActiveRef.current.contains(event.target)) {
+                setSearchActive(false);
+            }
+        };
+        document.addEventListener('click', handler);
+        return () => {
+            document.removeEventListener('click', handler);
+        };
+    });
     useEffect(() => {
         const searchResult = document.getElementById('search-result-dropdown');
         if (!searchActive) {
@@ -49,14 +66,42 @@ export default function Navbar() {
                 searchResult.classList.add('h-0');
                 searchResult.classList.add('overflow-hidden');
                 searchResult.classList.add('p-0');
-            }, 500);
+                searchResult.classList.add('-z-50');
+                searchResult.classList.add('opacity-0');
+            }, 200);
         }
     }, [searchActive]);
-    const [isNavOpen, setisNavOpen] = useState(false);
 
-    const toggleNavMenu = () => {
-        setisNavOpen(!isNavOpen);
-    };
+    const [accountActive, setAccountActive] = useState(false);
+    const accountActiveRef = useRef();
+
+    useEffect(() => {
+        const handler = (event) => {
+            if (!accountActiveRef.current.contains(event.target)) {
+                setAccountActive(false);
+            }
+        };
+        document.addEventListener('click', handler);
+        return () => {
+            document.removeEventListener('click', handler);
+        };
+    });
+
+    useEffect(() => {
+        const accountDropdown = document.getElementById('account-dropdown');
+        if (!accountActive) {
+            setTimeout(() => {
+                accountDropdown.classList.add('w-0');
+                accountDropdown.classList.add('h-0');
+                accountDropdown.classList.add('overflow-hidden');
+                accountDropdown.classList.add('p-0');
+                accountDropdown.classList.add('-z-50');
+                accountDropdown.classList.add('opacity-0');
+            }, 200);
+        }
+    }, [accountActive]);
+
+    const [isNavOpen, setisNavOpen] = useState(false);
     const [isMobileSearchOpen, setisMobileSearchOpen] = useState(false);
 
     const toggleMobileSearch = () => {
@@ -144,18 +189,18 @@ export default function Navbar() {
                         </div>
 
                         {/* SEARCH BAR */}
-                        <div className="relative">
+                        <div className="relative" ref={searchActiveRef}>
                             <div className="border border-gray-400 rounded-full flex relative">
                                 <input
                                     type="text"
                                     placeholder="Search"
                                     className={`${
                                         searchActive
-                                            ? 'focus:pr-[300px] transition-all ease-in-out duration-500'
-                                            : 'focus:pr-0 transition-all ease-in-out duration-500'
+                                            ? 'pr-[300px] transition-all ease-in-out duration-500'
+                                            : 'pr-0 transition-all ease-in-out duration-500'
                                     } py-2 px-4 focus:outline-none w-full rounded-full `}
                                     onFocus={() => setSearchActive(true)}
-                                    onBlur={() => setSearchActive(false)}
+                                    // onBlur={() => setSearchActive(false)}
                                 />
                                 <AiOutlineSearch className="text-[20px] text-gray-500 absolute right-4 top-[10px]" />
                             </div>
@@ -193,10 +238,55 @@ export default function Navbar() {
 
                     {/* ACCOUNT AND CART */}
                     <div className="hidden lg:flex gap-8">
-                        <Link href="/" className="flex gap-2 items-center">
-                            <RxPerson className="text-xl" />
-                            Account
-                        </Link>
+                        <div className="relative">
+                            <button
+                                onClick={() => setAccountActive(!accountActive)}
+                                className="flex gap-2 items-center"
+                            >
+                                <RxPerson className="text-xl" />
+                                Account
+                            </button>
+                            <div
+                                id="account-dropdown"
+                                className={`${
+                                    accountActive
+                                        ? 'opacity-100 top-[220%] transition-all ease-in-out duration-2b00'
+                                        : 'opacity-0 top-[290%] transition-all ease-in-out duration-200'
+                                } absolute min-w-[200%] right-1/2 translate-x-1/2 bg-white p-4 rounded-xl z-50`}
+                                ref={accountActiveRef}
+                            >
+                                {/* <h2 className="text-lg">Account</h2> */}
+                                {/* <div className="w-full border-t border-black mb-2" /> */}
+                                {session.status === 'authenticated' ? (
+                                    <div className="flex flex-col gap-3">
+                                        <Link
+                                            href="/"
+                                            className="hover:text-green-700 transition-all"
+                                        >
+                                            Account
+                                        </Link>
+                                        <Link
+                                            href="/seller"
+                                            className="hover:text-green-700 transition-all"
+                                        >
+                                            Seller Center
+                                        </Link>
+                                        <div className="w-full border-t border rounded border-gray-900" />
+                                        <button
+                                            className="hover:text-red-700 transition-all"
+                                            onClick={() => signOut()}
+                                        >
+                                            Sign Out
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-col gap-2">
+                                        <Link href="/login">Login</Link>
+                                        <Link href="/register">Register</Link>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                         <Link href="/" className="flex gap-2 items-center">
                             <AiOutlineShoppingCart className="text-xl" />
                             Cart
@@ -212,7 +302,9 @@ export default function Navbar() {
                             <AiOutlineSearch />
                         </button>
                         <button
-                            onClick={toggleNavMenu}
+                            onClick={() => {
+                                setisNavOpen(!isNavOpen);
+                            }}
                             className="text-xl flex items-center justify-center p-2 rounded-md focus:outline-none transition duration-150 ease-in-out"
                         >
                             <AiOutlineMenu />
@@ -239,7 +331,9 @@ export default function Navbar() {
                                         <Link href="/">LOGO</Link>
                                     </div>
                                     <button
-                                        onClick={toggleNavMenu}
+                                        onClick={() => {
+                                            setisNavOpen(!isNavOpen);
+                                        }}
                                         className="p-4 text-gray-600 focus:outline-none text-xl"
                                     >
                                         <AiOutlineClose />
