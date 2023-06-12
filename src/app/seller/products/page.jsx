@@ -1,4 +1,3 @@
-import SellerLayout from '@/components/seller/SellerLayout/SellerLayout';
 import Link from 'next/link';
 
 async function getData() {
@@ -17,7 +16,7 @@ export default async function SellerProducts() {
     const products = await getData();
     
     return (
-        <SellerLayout>
+        <>
             <Link
                 href={'/seller/products/new'}
                 className="bg-green-700 px-4 py-2 rounded text-white"
@@ -81,6 +80,6 @@ export default async function SellerProducts() {
                     ))}
                 </tbody>
             </table>
-        </SellerLayout>
+        </>
     );
 }

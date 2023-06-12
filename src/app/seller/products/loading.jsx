@@ -1,5 +1,4 @@
 // 'use client';
-import SellerLayout from '@/components/seller/SellerLayout/SellerLayout';
 import Link from 'next/link';
 
 async function getData() {
@@ -15,24 +14,24 @@ async function getData() {
 
 export default async function SellerProducts() {
     return (
-        <SellerLayout>
+        <>
             <Link
                 href={'/seller/products/new'}
-                className="bg-green-700 px-4 py-2 rounded text-white"
+                className="bg-gray-500-700 px-4 py-2 rounded text-white"
             >
                 Add New Product
             </Link>
             <table className="basic mt-4">
                 <thead>
                     <tr>
-                        <td>Product Name</td>
+                        <td></td>
                         <td></td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="flex items-center justify-center w-full">
                     <p>LOADING........</p>
                 </tbody>
             </table>
-        </SellerLayout>
+        </>
     );
 }
