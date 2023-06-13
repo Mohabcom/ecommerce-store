@@ -53,7 +53,7 @@ export default function layout({ children }) {
                     isNavActive={isNavActive}
                     setIsNavActive={setIsNavActive}
                 />
-                <div className="bg-white flex-grow h-full p-4">{children}</div>
+                <div className="bg-white flex-grow h-full p-4 overflow-y-scroll overflow-x-hidden">{children}</div>
             </div>
         </div>
     );
