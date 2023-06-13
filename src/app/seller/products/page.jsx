@@ -41,13 +41,14 @@ export default async function SellerProducts({ params }) {
                             key={product._id}
                         >
                             <td className="flex items-center gap-2">
-                                <div className="border-e border-gray-600 w-[100px] h-[100px] flex items-center justify-center text-center">
+                                <div className="border-e border-gray-600 w-[100px] h-[100px] flex items-center justify-center text-center relative">
                                     {product.images[0] ? (
                                         <Image
                                             src={product.images[0]}
-                                            width={100}
-                                            height={100}
+                                            layout="fill"
+                                            objectFit="contain"
                                             alt={product.title}
+                                            className="pr-3 "
                                         />
                                     ) : (
                                         <div>

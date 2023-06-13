@@ -25,11 +25,12 @@ export default async function EditProduct({ params }) {
     const deleteProduct = async () => {
         setIsLoading(true);
         for (const link of product.images) {
-            await axios.delete(`/api/images/${link}`);
+            const filename = link.split('/').pop();
+            await axios.delete(`/api/images/${filename}`);
         }
         await axios.delete(`/api/products/${id}`);
         setIsLoading(false);
-        router.push('/seller/products');
+        router.push('/seller/products?delete=success');
     };
     return (
         <>

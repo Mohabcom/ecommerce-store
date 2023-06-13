@@ -1,5 +1,6 @@
 import connect from '@/lib/mongoose';
 import { Product } from '@/models/Product';
+import axios from 'axios';
 import { NextResponse } from 'next/server';
 
 export const GET = async (request) => {
@@ -20,6 +21,7 @@ export const DELETE = async (request) => {
     await connect();
 
     const id = request.url.split('/products/')[1];
+
     try {
         await Product.findOneAndDelete({
             _id: id,

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Spinner from '../Spinner/Spinner';
 import { ReactSortable } from 'react-sortablejs';
 import { useFormik } from 'formik';
+import useUploadImage from './hooks/useUploadImage';
 
 export default function ProductForm({
     _id,
@@ -61,21 +62,13 @@ export default function ProductForm({
         getCategories();
     }, []);
 
-    const uploadImages = async (ev) => {
+    const uploadImage = async (ev) => {
         setIsUploading(true);
-        const files = ev.target?.files;
-        if (files?.length > 0) {
-            const data = new FormData();
-            for (const file of files) {
-                data.append('file', file);
-            }
-            const res = await axios.post('/api/images', data);
-            setImages((oldImages) => {
-                return [...oldImages, ...res.data.links];
-            });
-        }
+        const imageLink = await useUploadImage(ev);
+        formik.values.images.push(imageLink);
         setIsUploading(false);
     };
+
     const updateImagesOrder = (images) => {
         formik.values.images = images;
     };
@@ -197,7 +190,7 @@ export default function ProductForm({
                     <input
                         className="border border-gray-200 rounded-sm p-2 w-full mb-2 focus:border-green-700 hidden"
                         type="file"
-                        onChange={uploadImages}
+                        onChange={uploadImage}
                         // className="hidden"
                     />
                 </label>
