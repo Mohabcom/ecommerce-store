@@ -11,35 +11,8 @@ import {
 import { RxPerson } from 'react-icons/rx';
 import { BsTelephone } from 'react-icons/bs';
 import PaddingContainer from '../PaddingContainer/PaddingContainer';
-import Reveal from '../Reveal/Reveal';
 import { signOut, useSession } from 'next-auth/react';
-
-export const categories = [
-    {
-        name: 'Furniture',
-        NumberOfItems: 240,
-    },
-    {
-        name: 'Headphones',
-        NumberOfItems: 240,
-    },
-    {
-        name: 'Shoes',
-        NumberOfItems: 240,
-    },
-    {
-        name: 'Bags',
-        NumberOfItems: 240,
-    },
-    {
-        name: 'Laptops',
-        NumberOfItems: 240,
-    },
-    {
-        name: 'Books',
-        NumberOfItems: 240,
-    },
-];
+import { categories } from '@/data/categories';
 
 export default function Navbar() {
     const session = useSession();
