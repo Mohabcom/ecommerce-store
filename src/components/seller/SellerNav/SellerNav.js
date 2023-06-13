@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -76,7 +76,7 @@ export default function SellerNav({ isNavActive, setIsNavActive }) {
                     <Link
                         href="/seller/products"
                         className={
-                            pathname.includes('/products')
+                            pathname.includes('/seller/products')
                                 ? activeLink
                                 : inactiveLink
                         }
@@ -88,7 +88,7 @@ export default function SellerNav({ isNavActive, setIsNavActive }) {
                             strokeWidth={1.5}
                             stroke="currentColor"
                             className={
-                                pathname.includes('/products')
+                                pathname.includes('/seller/products')
                                     ? activeIcon
                                     : inactiveIcon
                             }

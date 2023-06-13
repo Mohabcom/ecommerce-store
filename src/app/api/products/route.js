@@ -2,7 +2,7 @@ import connect from '@/lib/mongoose';
 import { Product } from '@/models/Product';
 import { NextResponse } from 'next/server';
 
-export const GET = async (req, res) => {
+export const GET = async (request) => {
     await connect();
 
     // Get All Products
@@ -16,12 +16,12 @@ export const GET = async (req, res) => {
     }
 };
 
-export const POST = async (req, res) => {
+export const POST = async (request) => {
     await connect();
     // Create New Product
     try {
         const { title, category, description, price, images, properties } =
-            req.body;
+            request.body;
 
         let updatedCategory = null;
         if (category) updatedCategory = category;
@@ -41,11 +41,12 @@ export const POST = async (req, res) => {
     }
 };
 
-export const PUT = async (req, res) => {
+export const PUT = async (request) => {
+    await connect();
     // Edit Product
     try {
         const { title, category, description, price, images, properties, _id } =
-            req.body;
+            request.body;
         let updatedCategory = null;
         if (category) updatedCategory = category;
         const product = await Product.findOneAndUpdate(
@@ -67,19 +68,5 @@ export const PUT = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-    }
-};
-export const DELETE = async (req, res) => {
-    if (req.query?.id) {
-        try {
-            await Product.findOneAndDelete({
-                _id: req.query?.id,
-            });
-            return new NextResponse(JSON.stringify({ status: 'success' }), {
-                status: 200,
-            });
-        } catch (error) {
-            console.log(error);
-        }
     }
 };

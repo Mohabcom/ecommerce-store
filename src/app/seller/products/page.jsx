@@ -36,7 +36,7 @@ export default async function SellerProducts() {
                             <td>{product.title}</td>
                             <td className="flex justify-center items-center gap-2">
                                 <Link
-                                    href={'/products/edit/' + product._id}
+                                    href={'/seller/products/edit/' + product._id}
                                     className="btn-default"
                                 >
                                     <svg
@@ -56,7 +56,7 @@ export default async function SellerProducts() {
                                     Edit
                                 </Link>
                                 <Link
-                                    href={'/products/delete/' + product._id}
+                                    href={'/seller/products/delete/' + product._id}
                                     className="btn-red"
                                 >
                                     <svg

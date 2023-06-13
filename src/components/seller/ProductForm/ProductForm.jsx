@@ -1,7 +1,8 @@
+'use client';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Spinner from './Spinner';
+import Spinner from '../Spinner/Spinner';
 import { ReactSortable } from 'react-sortablejs';
 
 export default function ProductForm({
@@ -22,12 +23,19 @@ export default function ProductForm({
     const [price, setPrice] = useState(existingPrice || '');
     const [images, setImages] = useState(existingImages || []);
     const [isUploading, setIsUploading] = useState(false);
+    const [loadingCategories, setLoadingCategories] = useState(false);
     const [categories, setCategories] = useState([]);
     const router = useRouter();
+
     useEffect(() => {
-        axios.get('/api/categories').then((res) => {
-            setCategories(res.data);
-        });
+        const getCategories = async () => {
+            setLoadingCategories(true);
+            await axios.get('/api/categories').then((res) => {
+                setCategories(res.data);
+            });
+            setLoadingCategories(false);
+        };
+        getCategories();
     }, []);
 
     const saveProduct = async (ev) => {
@@ -47,7 +55,7 @@ export default function ProductForm({
             // create
             await axios.post('/api/products', data);
         }
-        router.push('/products');
+        router.push('/seller/products');
     };
     const uploadImages = async (ev) => {
         setIsUploading(true);
@@ -81,6 +89,21 @@ export default function ProductForm({
         }
     }
 
+    // const [propertieToFill, setpropertieToFill] = useState([]);
+    // useEffect(() => {
+    //     if (categories.length > 0 && category) {
+    //         let catInfo = categories.find(({ _id }) => _id === category);
+    //         propertieToFill.push(...catInfo.properties);
+    //         while (catInfo?.parent?._id) {
+    //             const parentCat = categories.find(
+    //                 ({ _id }) => _id === catInfo?.parent?._id,
+    //             );
+    //             propertieToFill.push(...parentCat.properties);
+    //             catInfo = parentCat;
+    //         }
+    //     }
+    // }, [categories]);
+
     const setProductProp = (propName, value) => {
         setProductProperties((prev) => {
             const newProductProps = { ...prev };
@@ -89,36 +112,47 @@ export default function ProductForm({
         });
     };
     return (
-        <form onSubmit={saveProduct}>
-            <label>Product Name</label>
+        <form className="flex flex-col" onSubmit={saveProduct}>
+            <label className="text-gray-500 text-sm">Product Name</label>
             <input
+                className="border border-gray-200 rounded-sm p-2 w-full mb-2 focus:border-green-700"
                 type="text"
                 placeholder="Product Name"
                 value={title}
                 onChange={(ev) => setTitle(ev.target.value)}
             />
-            <label>Category</label>
-            <select
-                value={category}
-                onChange={(ev) => setCategory(ev.target.value)}
-            >
-                <option value="">Uncategorized</option>
-                {categories.length > 0 &&
-                    categories.map((category) => (
-                        <option key={category._id} value={category._id}>
-                            {category.name}
-                        </option>
-                    ))}
-            </select>
-            {propertieToFill.length > 0 && <label>Properties</label>}
+            {loadingCategories ? (
+                <div>LOADING CATEGORIES...</div>
+            ) : (
+                <div>
+                    <label className="text-gray-500 text-sm">Category</label>
+                    <select
+                        className="border border-gray-200 rounded-sm p-2 w-full mb-2 focus:border-green-700"
+                        value={category}
+                        onChange={(ev) => setCategory(ev.target.value)}
+                    >
+                        <option value="">Uncategorized</option>
+                        {categories.length > 0 &&
+                            categories.map((category) => (
+                                <option key={category._id} value={category._id}>
+                                    {category.name}
+                                </option>
+                            ))}
+                    </select>
+                </div>
+            )}
+            {propertieToFill.length > 0 && (
+                <label className="text-gray-500 text-sm">Properties</label>
+            )}
             {propertieToFill.length > 0 &&
                 propertieToFill.map((p) => (
                     <div key={p.name} className="">
-                        <label>
+                        <label className="text-gray-500 text-sm">
                             {p.name[0].toUpperCase() + p.name.substring(1)}
                         </label>
                         <div>
                             <select
+                                className="border border-gray-200 rounded-sm p-2 w-full mb-2 focus:border-green-700"
                                 value={productProperties[p.name]}
                                 onChange={(ev) =>
                                     setProductProp(p.name, ev.target.value)
@@ -134,7 +168,7 @@ export default function ProductForm({
                         </div>
                     </div>
                 ))}
-            <label>Photos</label>
+            <label className="text-gray-500 text-sm">Photos</label>
             <div className="mb-2 flex flex-wrap gap-2">
                 <ReactSortable
                     className="flex flex-wrap gap-2"
@@ -146,7 +180,7 @@ export default function ProductForm({
                             <div key={link} className="h-24">
                                 <img
                                     src={link}
-                                    className="rounded-lg cursor-pointer"
+                                    className="rounded-lg cursor-pointer max-h-full"
                                 />
                             </div>
                         ))}
@@ -156,7 +190,7 @@ export default function ProductForm({
                         <Spinner />
                     </div>
                 )}
-                <label className="cursor-pointer w-24 h-24 text-sm gap-1 bg-accent text-white flex flex-col items-center justify-center rounded-sm">
+                <label className="cursor-pointer w-24 h-24 text-sm gap-1 bg-green-700 text-white flex flex-col items-center justify-center rounded-sm">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -173,20 +207,23 @@ export default function ProductForm({
                     </svg>
                     <div>Upload</div>
                     <input
+                        className="border border-gray-200 rounded-sm p-2 w-full mb-2 focus:border-green-700 hidden"
                         type="file"
                         onChange={uploadImages}
-                        className="hidden"
+                        // className="hidden"
                     />
                 </label>
             </div>
-            <label>Description</label>
+            <label className="text-gray-500 text-sm">Description</label>
             <textarea
+                className="border border-gray-200 rounded-sm p-2 w-full mb-2 focus:border-green-700"
                 placeholder="Description"
                 value={description}
                 onChange={(ev) => setDescription(ev.target.value)}
             />
-            <label>Price (in USD)</label>
+            <label className="text-gray-500 text-sm">Price (in USD)</label>
             <input
+                className="border border-gray-200 rounded-sm p-2 w-full mb-2 focus:border-green-700"
                 type="number"
                 placeholder="Price"
                 value={price}
@@ -197,17 +234,20 @@ export default function ProductForm({
                     <button
                         type="button"
                         onClick={() => {
-                            router.push('/products');
+                            router.push('/seller/products');
                         }}
-                        className="btn-default"
+                        className="px-4 py-2 rounded-sm shadow-md bg-white text-gray-600 border border-gray-200"
                     >
                         Cancel
                     </button>
                 )}
                 <button
                     type="submit"
-                    className={isUploading ? 'btn-default' : 'btn-primary'}
-                    disabled={isUploading && 'true'}
+                    className={`px-4 py-2 rounded-sm shadow-md ${
+                        isUploading
+                            ? ' bg-white text-gray-600 border border-gray-200'
+                            : 'bg-green-700 text-white'
+                    }`}
                 >
                     Save
                 </button>
