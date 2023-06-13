@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Spinner from '../Spinner/Spinner';
 import { ReactSortable } from 'react-sortablejs';
+import { useFormik } from 'formik';
 
 export default function ProductForm({
     _id,
@@ -14,14 +15,36 @@ export default function ProductForm({
     price: existingPrice,
     images: existingImages,
 }) {
-    const [title, setTitle] = useState(existingTitle || '');
-    const [category, setCategory] = useState(existingCategory || '');
-    const [productProperties, setProductProperties] = useState(
-        existingProperties || {},
-    );
-    const [description, setDescription] = useState(existingDescription || '');
-    const [price, setPrice] = useState(existingPrice || '');
-    const [images, setImages] = useState(existingImages || []);
+    const formik = useFormik({
+        initialValues: {
+            title: existingTitle || '',
+            category: existingCategory || '',
+            productProperties: existingProperties || {},
+            description: existingDescription || '',
+            price: existingPrice || '',
+            images: existingImages || [],
+        },
+        onSubmit: async (values) => {
+            const data = {
+                title: values.title,
+                category: values.category,
+                description: values.description,
+                price: values.price,
+                images: values.images,
+                properties: values.productProperties,
+            };
+            console.log(data);
+            if (_id) {
+                // update
+                await axios.put('/api/products', { ...data, _id });
+            } else {
+                // create
+                await axios.post('/api/products', data);
+            }
+            router.push('/seller/products');
+        },
+        // validate: login_validate,
+    });
     const [isUploading, setIsUploading] = useState(false);
     const [loadingCategories, setLoadingCategories] = useState(false);
     const [categories, setCategories] = useState([]);
@@ -38,25 +61,6 @@ export default function ProductForm({
         getCategories();
     }, []);
 
-    const saveProduct = async (ev) => {
-        ev.preventDefault();
-        const data = {
-            title,
-            category,
-            description,
-            price,
-            images,
-            properties: productProperties,
-        };
-        if (_id) {
-            // update
-            await axios.put('/api/products', { ...data, _id });
-        } else {
-            // create
-            await axios.post('/api/products', data);
-        }
-        router.push('/seller/products');
-    };
     const uploadImages = async (ev) => {
         setIsUploading(true);
         const files = ev.target?.files;
@@ -73,12 +77,14 @@ export default function ProductForm({
         setIsUploading(false);
     };
     const updateImagesOrder = (images) => {
-        setImages(images);
+        formik.values.images = images;
     };
 
     let propertieToFill = [];
-    if (categories.length > 0 && category) {
-        let catInfo = categories.find(({ _id }) => _id === category);
+    if (categories.length > 0 && formik.values.category) {
+        let catInfo = categories.find(
+            ({ _id }) => _id === formik.values.category,
+        );
         propertieToFill.push(...catInfo.properties);
         while (catInfo?.parent?._id) {
             const parentCat = categories.find(
@@ -89,37 +95,20 @@ export default function ProductForm({
         }
     }
 
-    // const [propertieToFill, setpropertieToFill] = useState([]);
-    // useEffect(() => {
-    //     if (categories.length > 0 && category) {
-    //         let catInfo = categories.find(({ _id }) => _id === category);
-    //         propertieToFill.push(...catInfo.properties);
-    //         while (catInfo?.parent?._id) {
-    //             const parentCat = categories.find(
-    //                 ({ _id }) => _id === catInfo?.parent?._id,
-    //             );
-    //             propertieToFill.push(...parentCat.properties);
-    //             catInfo = parentCat;
-    //         }
-    //     }
-    // }, [categories]);
-
     const setProductProp = (propName, value) => {
-        setProductProperties((prev) => {
-            const newProductProps = { ...prev };
-            newProductProps[propName] = value;
-            return newProductProps;
-        });
+        const oldProps = formik.values.productProperties;
+        formik.values.productProperties = { ...oldProps };
+        formik.values.productProperties[propName] = value;
     };
+
     return (
-        <form className="flex flex-col" onSubmit={saveProduct}>
+        <form className="flex flex-col" onSubmit={formik.handleSubmit}>
             <label className="text-gray-500 text-sm">Product Name</label>
             <input
                 className="border border-gray-200 rounded-sm p-2 w-full mb-2 focus:border-green-700"
                 type="text"
                 placeholder="Product Name"
-                value={title}
-                onChange={(ev) => setTitle(ev.target.value)}
+                {...formik.getFieldProps('title')}
             />
             {loadingCategories ? (
                 <div>LOADING CATEGORIES...</div>
@@ -128,8 +117,7 @@ export default function ProductForm({
                     <label className="text-gray-500 text-sm">Category</label>
                     <select
                         className="border border-gray-200 rounded-sm p-2 w-full mb-2 focus:border-green-700"
-                        value={category}
-                        onChange={(ev) => setCategory(ev.target.value)}
+                        {...formik.getFieldProps('category')}
                     >
                         <option value="">Uncategorized</option>
                         {categories.length > 0 &&
@@ -153,7 +141,7 @@ export default function ProductForm({
                         <div>
                             <select
                                 className="border border-gray-200 rounded-sm p-2 w-full mb-2 focus:border-green-700"
-                                value={productProperties[p.name]}
+                                value={formik.values.productProperties[p.name]}
                                 onChange={(ev) =>
                                     setProductProp(p.name, ev.target.value)
                                 }
@@ -172,11 +160,11 @@ export default function ProductForm({
             <div className="mb-2 flex flex-wrap gap-2">
                 <ReactSortable
                     className="flex flex-wrap gap-2"
-                    list={images}
+                    list={formik.values.images}
                     setList={updateImagesOrder}
                 >
-                    {!!images?.length &&
-                        images.map((link) => (
+                    {!!formik.values.images?.length &&
+                        formik.values.images.map((link) => (
                             <div key={link} className="h-24">
                                 <img
                                     src={link}
@@ -218,16 +206,14 @@ export default function ProductForm({
             <textarea
                 className="border border-gray-200 rounded-sm p-2 w-full mb-2 focus:border-green-700"
                 placeholder="Description"
-                value={description}
-                onChange={(ev) => setDescription(ev.target.value)}
+                {...formik.getFieldProps('description')}
             />
             <label className="text-gray-500 text-sm">Price (in USD)</label>
             <input
                 className="border border-gray-200 rounded-sm p-2 w-full mb-2 focus:border-green-700"
                 type="number"
                 placeholder="Price"
-                value={price}
-                onChange={(ev) => setPrice(ev.target.value)}
+                {...formik.getFieldProps('price')}
             />
             <div className="flex gap-2">
                 {_id && (
