@@ -5,7 +5,7 @@ export default async function SellerProducts() {
         <>
             <Link
                 href={'/seller/products/new'}
-                className="bg-gray-500-700 px-4 py-2 rounded text-white"
+                className="bg-gray-500 px-4 py-2 rounded text-white"
             >
                 Add New Product
             </Link>

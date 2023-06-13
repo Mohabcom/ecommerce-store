@@ -33,3 +33,22 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+
+table.basic {
+    @apply w-full bg-white rounded-sm shadow-md;
+}
+
+table.basic thead tr td {
+    @apply text-sm text-gray-500 font-bold uppercase border-b border-gray-500 px-3 py-1;
+}
+
+table.basic tr td {
+    @apply px-3 py-1;
+}
+table.basic a {
+    @apply inline-flex mx-1 items-center gap-1;
+}
+table.basic button {
+    @apply inline-flex mx-1 items-center gap-1;
+}
