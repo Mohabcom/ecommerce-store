@@ -20,7 +20,7 @@ export const POST = async (request) => {
     await connect();
     // Create New Category
     try {
-        const { name, parentCategory, properties } = request.body;
+        const { name, parentCategory, properties } = await request.json();
         let parent = null;
         if (parentCategory) parent = parentCategory;
         const categoryDoc = await Category.create({
@@ -37,7 +37,7 @@ export const POST = async (request) => {
 };
 export const PUT = async (request) => {
     try {
-        const { name, parentCategory, properties, _id } = request.body;
+        const { name, parentCategory, properties, _id } = await request.json();
         let parent = null;
         if (parentCategory) parent = parentCategory;
         const categoryDoc = await Category.findOneAndUpdate(

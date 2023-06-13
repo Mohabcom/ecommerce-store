@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 
 async function getData(id) {
     const res = await fetch(`http://localhost:3000//api/products/${id}`, {
-        // cache: 'no-store',
-        next: { revalidate: 3600 },
+        cache: 'no-store',
+        // next: { revalidate: 3600 },
     });
 
     if (!res.ok) {

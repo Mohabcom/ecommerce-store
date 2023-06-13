@@ -21,7 +21,15 @@ export const POST = async (request) => {
     // Create New Product
     try {
         const { title, category, description, price, images, properties } =
-            request.body;
+            await request.json();
+        console.log({
+            title,
+            category,
+            description,
+            price,
+            images,
+            properties,
+        });
 
         let updatedCategory = null;
         if (category) updatedCategory = category;
@@ -46,7 +54,7 @@ export const PUT = async (request) => {
     // Edit Product
     try {
         const { title, category, description, price, images, properties, _id } =
-            request.body;
+            await request.json();
         let updatedCategory = null;
         if (category) updatedCategory = category;
         const product = await Product.findOneAndUpdate(

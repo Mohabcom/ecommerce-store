@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 async function getData() {
     const res = await fetch('http://localhost:3000/api/products', {
-        // cache: 'no-store',
-        next: { revalidate: 3600 },
+        cache: 'no-store',
+        // next: { revalidate: 3600 },
     });
 
     if (!res.ok) {
