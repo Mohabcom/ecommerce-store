@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 async function getData() {
@@ -12,9 +13,13 @@ async function getData() {
     return res.json();
 }
 
-export default async function SellerProducts() {
-    const products = await getData();
-    
+export default async function SellerProducts({ params }) {
+    let products = await getData();
+
+    if (params.delete == 'success') {
+        products = await getData();
+    }
+
     return (
         <>
             <Link
@@ -27,16 +32,37 @@ export default async function SellerProducts() {
                 <thead>
                     <tr>
                         <td>Product Name</td>
-                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
                     {products.map((product) => (
-                        <tr key={product._id}>
-                            <td>{product.title}</td>
+                        <tr
+                            className="flex items-center justify-between gap-2 border-b border-gray-500"
+                            key={product._id}
+                        >
+                            <td className="flex items-center gap-2">
+                                <div className="border-e border-gray-600 w-[100px] h-[100px] flex items-center justify-center text-center">
+                                    {product.images[0] ? (
+                                        <Image
+                                            src={product.images[0]}
+                                            width={100}
+                                            height={100}
+                                            alt={product.title}
+                                        />
+                                    ) : (
+                                        <div>
+                                            No
+                                            <br /> Image
+                                        </div>
+                                    )}
+                                </div>
+                                {product.title}
+                            </td>
                             <td className="flex justify-center items-center gap-2">
                                 <Link
-                                    href={'/seller/products/edit/' + product._id}
+                                    href={
+                                        '/seller/products/edit/' + product._id
+                                    }
                                     className="btn-default"
                                 >
                                     <svg
@@ -56,7 +82,9 @@ export default async function SellerProducts() {
                                     Edit
                                 </Link>
                                 <Link
-                                    href={'/seller/products/delete/' + product._id}
+                                    href={
+                                        '/seller/products/delete/' + product._id
+                                    }
                                     className="btn-red"
                                 >
                                     <svg
