@@ -8,7 +8,29 @@ export const GET = async (request) => {
     // Get Categories
     try {
         const categories = await Category.find().populate('parent');
-        return new NextResponse(JSON.stringify(categories), {
+        const sortedCategories = categories.sort((a, b) => {
+            // const nameA = a.name.toLowerCase();
+            // const nameB = b.name.toLowerCase();
+            //     if (nameA < nameB) return -1;
+            //     if (nameA > nameB) return 1;
+            const parentNameA = a.parent?.name.toLowerCase();
+            const parentNameB = b.parent?.name.toLowerCase();
+            if (a.parent & !b.parent) {
+                return -1;
+            }
+            if (b.parent & !a.parent) {
+                return 1;
+            }
+            if (parentNameA < parentNameB) {
+                return -1;
+            }
+            if (parentNameA > parentNameB) {
+                return 1;
+            }
+            return 0;
+        });
+        // console.log(sortedCategories);
+        return new NextResponse(JSON.stringify(sortedCategories), {
             status: 200,
         });
     } catch (error) {
