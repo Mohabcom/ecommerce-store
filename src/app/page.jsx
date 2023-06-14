@@ -14,6 +14,7 @@ import ChooseBrand from '@/components/Home/ChooseBrand/ChooseBrand';
 import Discounts from '@/components/Home/Discounts/Discounts';
 import WeeklyPopular from '@/components/Home/WeeklyPopular/WeeklyPopular';
 import ParallaxBanner from '@/components/Home/ParallaxBanner/ParallaxBanner';
+import MostSelling from '@/components/Home/MostSelling/MostSelling';
 
 export default function Home() {
     return (
@@ -25,6 +26,7 @@ export default function Home() {
             <Discounts />
             <WeeklyPopular />
             <ParallaxBanner />
+            <MostSelling />
         </div>
     );
 }
