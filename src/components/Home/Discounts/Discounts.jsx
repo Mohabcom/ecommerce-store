@@ -47,7 +47,7 @@ export default function Discounts() {
                         return (
                             <div
                                 key={index}
-                                className={`w-1/3 md:w-1/4 lg:w-1/5 grow rounded-lg flex flex-col items-center justify-center overflow-hidden ${discount.bgColor}`}
+                                className={`w-full sm:w-1/3 md:w-1/4 lg:w-1/5 grow rounded-lg flex flex-col items-center justify-center overflow-hidden ${discount.bgColor}`}
                             >
                                 <div className="w-full h-full grow p-8">
                                     <h3 className="font-bold text-xl text text-gray-800">

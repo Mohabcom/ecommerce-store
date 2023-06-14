@@ -14,7 +14,7 @@ export default function ChooseBrand() {
                         return (
                             <Reveal
                                 key={brand.name}
-                                className="w-1/3 md:w-1/4 lg:w-1/5 grow"
+                                className="w-full sm:w-1/3 md:w-1/4 lg:w-1/5 grow"
                                 delay={index / 20}
                             >
                                 <div className="bg-gray-200 rounded-lg p-4 flex gap-2 items-center border border-transparent hover:border-gray-700 transition-all">

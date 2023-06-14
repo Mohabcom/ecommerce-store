@@ -35,7 +35,7 @@ export default function HelpServices() {
                         return (
                             <div
                                 key={index}
-                                className="w-1/3 h-full lg:w-1/4 grow rounded-lg flex flex-col items-center justify-center overflow-hidden bg-gray-200"
+                                className="w-full sm:w-1/3 h-full lg:w-1/4 grow rounded-lg flex flex-col items-center justify-center overflow-hidden bg-gray-200"
                             >
                                 <div className="w-full h-full grow p-12">
                                     <h3 className="font-bold text-2xl text-gray-800">

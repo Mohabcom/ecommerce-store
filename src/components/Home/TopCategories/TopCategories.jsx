@@ -16,10 +16,10 @@ export default function TopCategories() {
                         return (
                             <Reveal
                                 key={category.name}
-                                className="w-1/3 md:w-1/4 lg:w-1/12 grow overflow-hidden"
+                                className="w-1/3 sm:w-1/4 lg:w-1/12 grow overflow-hidden"
                                 delay={index / 20}
                             >
-                                <div className="bg-gray-200 rounded-lg min-h-[300px] overflow-hidden hover:cursor-pointer select-none">
+                                <div className="bg-gray-200 rounded-lg min-h-[250px] sm:min-h-[300px] overflow-hidden hover:cursor-pointer select-none">
                                     <Image
                                         src={category.image}
                                         alt={category.name}
