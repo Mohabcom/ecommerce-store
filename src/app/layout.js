@@ -4,6 +4,7 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import AuthProvider from '@/components/AuthProvider/AuthProvider';
 import { usePathname } from 'next/navigation';
+import Footer from '@/components/Footer/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
                         <div className="w-screen h-screen overflow-x-hidden">
                             <Navbar />
                             {children}
+                            <Footer />
                         </div>
                     )}
                 </AuthProvider>
