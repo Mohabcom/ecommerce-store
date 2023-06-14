@@ -27,7 +27,7 @@ export default function ProductsSwiper({ products }) {
         >
             {products.map((product, index) => {
                 return (
-                    <SwiperSlide>
+                    <SwiperSlide key={index}>
                         <ProductCard product={product} index={index} />
                     </SwiperSlide>
                 );

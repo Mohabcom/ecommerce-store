@@ -23,11 +23,11 @@ export default function Discounts() {
                                         </p>
                                     </div>
                                     <div className="w-full h-full grow bg-red-200">
-                                        <Image
+                                        {/* <Image
                                             src={''}
                                             alt=""
                                             className="w-full h-full object-cover object-center"
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                             );

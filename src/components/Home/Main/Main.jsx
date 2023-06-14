@@ -6,6 +6,7 @@ export default function Main() {
   return (
       <main className="relative flex items-center justify-center select-none text-center md:text-left">
           <Image
+              priority={100}
               alt="main-bg"
               src={mainBG}
               className=" w-screen h-[500px] sm:h-[600px] lg:h-[700px] object-cover object-left md:object-center"

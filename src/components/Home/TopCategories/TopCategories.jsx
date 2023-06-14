@@ -23,9 +23,9 @@ export default function TopCategories() {
                                     <Image
                                         src={category.image}
                                         alt={category.name}
-                                        layout="fill"
-                                        objectFit="cover"
-                                        className="z-10 rounded-lg"
+                                        className="z-10 rounded-lg object-cover object-center max-h-full"
+                                        fill
+                                        style={{ objectFit: 'cover' }}
                                     />
                                     <div className="h-full absolute flex flex-col w-full mt-4 text-white">
                                         <h3 className="font-bold text-center text-xl z-50 flex-1">

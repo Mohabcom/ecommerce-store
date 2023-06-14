@@ -17,9 +17,9 @@ export default function ProductCard({ product, index }) {
                     <Image
                         src={product.images[0]}
                         alt={product.title}
-                        layout="fill"
-                        objectFit="contain"
-                        className="max-w-[70%] max-h-[70%] mx-auto my-auto"
+                        fill
+                        style={{ objectFit: 'contain' }}
+                        className="max-w-[70%] max-h-[70%] mx-auto my-auto hover:scale-110 transition-all duration-500"
                     />
                 </div>
                 <div className="flex justify-between">
@@ -31,7 +31,7 @@ export default function ProductCard({ product, index }) {
                 </div>
                 <p className="text-sm">{truncateText(product.description)}</p>
                 <div className="flex items-center gap-2">
-                    <div className="flex">
+                    <div className="flex text-green-700">
                         <AiFillStar />
                         <AiFillStar />
                         <AiFillStar />
@@ -40,7 +40,7 @@ export default function ProductCard({ product, index }) {
                     </div>
                     <p className="text-sm">(142)</p>
                 </div>
-                <button className="border-2 border-gray-700 font-bold rounded-full p-2 hover:bg-blue-400 transition-all">
+                <button className="border-2 border-gray-700 text-gray-700 font-bold rounded-full p-2 hover:bg-green-700 hover:text-white hover:border-green-700 transition-all">
                     Add To Cart
                 </button>
             </div>

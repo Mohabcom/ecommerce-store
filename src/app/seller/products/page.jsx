@@ -45,10 +45,9 @@ export default async function SellerProducts({ params }) {
                                     {product.images[0] ? (
                                         <Image
                                             src={product.images[0]}
-                                            layout="fill"
-                                            objectFit="contain"
                                             alt={product.title}
-                                            className="pr-3 "
+                                            fill
+                                            className="pr-3 object-contain object-center max-h-full"
                                         />
                                     ) : (
                                         <div>
