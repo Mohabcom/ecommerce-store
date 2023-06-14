@@ -7,6 +7,7 @@ import WeeklyPopular from '@/components/Home/WeeklyPopular/WeeklyPopular';
 import ParallaxBanner from '@/components/Home/ParallaxBanner/ParallaxBanner';
 import MostSelling from '@/components/Home/MostSelling/MostSelling';
 import CashbackBanner from '@/components/Home/CashbackBanner/CashbackBanner';
+import HelpServices from '@/components/Home/HelpServices/HelpServices';
 
 export default function Home() {
     return (
@@ -20,6 +21,7 @@ export default function Home() {
             <ParallaxBanner />
             <MostSelling />
             <CashbackBanner />
+            <HelpServices />
         </div>
     );
 }
