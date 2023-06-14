@@ -1,26 +1,15 @@
 'use client';
 import Spinner from '@/components/seller/Spinner/Spinner';
+import getProducts from '@/utils/getProducts';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-
-async function getData(id) {
-    const res = await fetch(`http://localhost:3000//api/products/${id}`, {
-        cache: 'no-store',
-        // next: { revalidate: 3600 },
-    });
-
-    if (!res.ok) {
-        throw new Error('Failed to fetch data');
-    }
-    return res.json();
-}
+import { useState } from 'react';
 
 export default async function EditProduct({ params }) {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const { id } = params;
-    const product = await getData(id);
+    const product = await getProducts(id);
 
     const deleteProduct = async () => {
         setIsLoading(true);
@@ -30,7 +19,7 @@ export default async function EditProduct({ params }) {
         }
         await axios.delete(`/api/products/${id}`);
         setIsLoading(false);
-        router.push('/seller/products?delete=success');
+        router.push('/seller/products?delete=1');
     };
     return (
         <>

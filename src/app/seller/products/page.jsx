@@ -1,23 +1,12 @@
+import getProducts from '@/utils/getProducts';
 import Image from 'next/image';
 import Link from 'next/link';
 
-async function getData() {
-    const res = await fetch('http://localhost:3000/api/products', {
-        cache: 'no-store',
-        // next: { revalidate: 3600 },
-    });
-
-    if (!res.ok) {
-        throw new Error('Failed to fetch data');
-    }
-    return res.json();
-}
-
 export default async function SellerProducts({ params }) {
-    let products = await getData();
+    let products = await getProducts();
 
-    if (params.delete == 'success') {
-        products = await getData();
+    if (params.delete == 1) {
+        products = await getProducts();
     }
 
     return (

@@ -1,20 +1,9 @@
 import PaddingContainer from '@/components/PaddingContainer/PaddingContainer';
 import ProductsSwiper from '@/components/ProductsSwiper/ProductsSwiper';
-
-async function getData() {
-    const res = await fetch('http://localhost:3000/api/products', {
-        cache: 'no-store',
-        // next: { revalidate: 3600 },
-    });
-
-    if (!res.ok) {
-        throw new Error('Failed to fetch data');
-    }
-    return res.json();
-}
+import getProducts from '@/utils/getProducts';
 
 export default async function WeeklyPopular() {
-    const products = await getData();
+    const products = await getProducts();
     return (
         <section>
             <PaddingContainer className="p-8">
