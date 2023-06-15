@@ -2,7 +2,7 @@ import PaddingContainer from '../../../components/PaddingContainer/PaddingContai
 
 export default function ParallaxBanner() {
     return (
-        <section className="parallax flex items-center justify-center">
+        <section className="parallax flex items-center justify-center 2xl:h-[40vh] 2xl:min-h-[700px]">
             <PaddingContainer className="select-none text-center md:text-left w-full h-full flex items-center justify-center text-white">
                 <div className="hidden md:block grow"></div>
                 <div className="hidden md:block grow"></div>

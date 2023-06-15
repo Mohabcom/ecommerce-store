@@ -6,8 +6,8 @@ import Image from 'next/image';
 export default function TopCategories() {
     return (
         <section>
-            <PaddingContainer className="p-8">
-                <h2 className="text-2xl font-bold mb-4">
+            <PaddingContainer className="p-8 flex flex-col lg:gap-[3vh]">
+                <h2 className="text-2xl lg:text-[3vh] font-bold mb-4">
                     Shop Our Top Categories
                 </h2>
 
@@ -19,7 +19,7 @@ export default function TopCategories() {
                                 className="w-1/3 sm:w-1/4 lg:w-1/12 grow overflow-hidden"
                                 delay={index / 20}
                             >
-                                <div className="bg-gray-200 rounded-lg min-h-[250px] sm:min-h-[300px] overflow-hidden hover:cursor-pointer select-none">
+                                <div className="bg-gray-200 rounded-lg min-h-[250px] sm:min-h-[300px] lg:h-[30vh] lg:min-h-[300px] overflow-hidden hover:cursor-pointer select-none">
                                     <Image
                                         src={category.image}
                                         alt={category.name}
@@ -27,8 +27,8 @@ export default function TopCategories() {
                                         fill
                                         style={{ objectFit: 'cover' }}
                                     />
-                                    <div className="h-full absolute flex flex-col w-full mt-4 text-white">
-                                        <h3 className="font-bold text-center text-xl z-50 flex-1">
+                                    <div className="h-full absolute flex flex-col w-full mt-4 lg:mt-[2vh] text-white">
+                                        <h3 className="font-bold text-center text-xl xl:text-[3vh] z-50 flex-1">
                                             {category.name}
                                         </h3>
                                     </div>

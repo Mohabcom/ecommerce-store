@@ -11,7 +11,7 @@ import HelpServices from '../components/Home/HelpServices/HelpServices';
 
 export default function Home() {
     return (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 lg:gap-[3vh]">
             <Main />
             <TopCategories />
             <FeaturedDeals />
