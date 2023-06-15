@@ -1,6 +1,6 @@
-import PaddingContainer from '@/components/PaddingContainer/PaddingContainer';
-import Reveal from '@/components/Reveal/Reveal';
-import { categories } from '@/data/categories';
+import PaddingContainer from '../../../components/PaddingContainer/PaddingContainer';
+import Reveal from '../../../components/Reveal/Reveal';
+import { categories } from '../../../data/categories';
 import Image from 'next/image';
 
 export default function TopCategories() {

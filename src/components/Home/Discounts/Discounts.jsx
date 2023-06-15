@@ -1,4 +1,4 @@
-import PaddingContainer from '@/components/PaddingContainer/PaddingContainer';
+import PaddingContainer from '../../../components/PaddingContainer/PaddingContainer';
 import Image from 'next/image';
 import firstimg from '../../../../public/discounts/sofa.png';
 import secondimg from '../../../../public/discounts/book.png';

@@ -11,7 +11,7 @@ export default function Footer() {
                 <div className="w-full border-t border-gray-500 my-4" />
                 <div className="flex flex-wrap lg:flex-nowrap gap-8 justify-between">
                     <div className="flex flex-col gap-4">
-                        <div className="text-5xl">LOGO</div>
+                        <div className="text-3xl">LOGO</div>
                         <p className="max-w-[300px] leading-tight">
                             Amet minim mollit non deserunt ullamco est sit
                             aliqua dolor do amet sint. Velit officia consequat

@@ -1,5 +1,5 @@
-import ProductForm from '@/components/seller/ProductForm/ProductForm';
-import getProducts from '@/utils/getProducts';
+import ProductForm from '../../../../../components/seller/ProductForm/ProductForm';
+import getProducts from '../../../../../utils/getProducts';
 
 export default async function EditProduct({ params }) {
     const { id } = params;

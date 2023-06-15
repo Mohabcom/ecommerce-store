@@ -1,8 +1,10 @@
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import Reveal from '../Reveal/Reveal';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function ProductCard({ product, index }) {
+    const router = useRouter();
     const truncateText = (text) => {
         if (text.length > 55) {
             return text.replace(/^(.{55}[^\s]*).*/, '$1') + '...';
@@ -12,7 +14,12 @@ export default function ProductCard({ product, index }) {
     };
     return (
         <Reveal delay={index / 20}>
-            <div className="flex flex-col gap-4 h-full">
+            <div
+                className="flex flex-col gap-4 h-full hover:cursor-pointer"
+                onClick={() => {
+                    router.push(`/product/${product._id}`);
+                }}
+            >
                 <div className="bg-slate-200 bg-opacity-50 rounded-lg w-full aspect-square relative">
                     <Image
                         src={product.images[0]}

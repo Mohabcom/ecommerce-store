@@ -1,5 +1,5 @@
-import connect from '@/lib/mongoose';
-import { Product } from '@/models/Product';
+import connect from '../../../../lib/mongoose';
+import { Product } from '../../../../models/Product';
 import axios from 'axios';
 import { NextResponse } from 'next/server';
 

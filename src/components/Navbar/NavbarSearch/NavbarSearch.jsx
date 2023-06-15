@@ -1,4 +1,4 @@
-import { categories } from '@/data/categories';
+import { categories } from '../../../data/categories';
 import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 

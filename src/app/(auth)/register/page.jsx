@@ -1,6 +1,6 @@
 'use client';
-import PaddingContainer from '@/components/PaddingContainer/PaddingContainer';
-import { register_validate } from '@/lib/validate';
+import PaddingContainer from '../../../components/PaddingContainer/PaddingContainer';
+import { register_validate } from '../../../lib/validate';
 import { useFormik } from 'formik';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';

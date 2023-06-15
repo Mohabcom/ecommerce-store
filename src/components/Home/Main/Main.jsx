@@ -1,4 +1,4 @@
-import PaddingContainer from '@/components/PaddingContainer/PaddingContainer';
+import PaddingContainer from '../../../components/PaddingContainer/PaddingContainer';
 import mainBG from '../../../../public/main-bg.png';
 import Image from 'next/image';
 

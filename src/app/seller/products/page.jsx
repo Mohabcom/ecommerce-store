@@ -1,4 +1,4 @@
-import getProducts from '@/utils/getProducts';
+import getProducts from '../../../utils/getProducts';
 import Image from 'next/image';
 import Link from 'next/link';
 

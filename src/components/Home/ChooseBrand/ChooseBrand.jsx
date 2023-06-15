@@ -1,6 +1,6 @@
-import PaddingContainer from '@/components/PaddingContainer/PaddingContainer';
-import Reveal from '@/components/Reveal/Reveal';
-import { brands } from '@/data/brands';
+import PaddingContainer from '../../../components/PaddingContainer/PaddingContainer';
+import Reveal from '../../../components/Reveal/Reveal';
+import { brands } from '../../../data/brands';
 import Image from 'next/image';
 
 export default function ChooseBrand() {

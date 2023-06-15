@@ -1,5 +1,5 @@
-import { Category } from '@/models/Category';
-import connect from '@/lib/mongoose';
+import { Category } from '../../../models/Category';
+import connect from '../../../lib/mongoose';
 import { NextResponse } from 'next/server';
 
 export const GET = async (request) => {

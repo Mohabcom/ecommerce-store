@@ -1,5 +1,5 @@
-import User from '@/models/User';
-import connect from '@/lib/mongoose';
+import User from '../../../../models/User';
+import connect from '../../../../lib/mongoose';
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
 

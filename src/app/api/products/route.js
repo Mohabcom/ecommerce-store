@@ -1,5 +1,5 @@
-import connect from '@/lib/mongoose';
-import { Product } from '@/models/Product';
+import connect from '../../../lib/mongoose';
+import { Product } from '../../../models/Product';
 import { NextResponse } from 'next/server';
 
 export const GET = async (request) => {

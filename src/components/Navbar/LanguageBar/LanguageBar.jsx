@@ -1,4 +1,4 @@
-import PaddingContainer from '@/components/PaddingContainer/PaddingContainer';
+import PaddingContainer from '../../../components/PaddingContainer/PaddingContainer';
 import Link from 'next/link';
 import { AiOutlineDown } from 'react-icons/ai';
 import { BsTelephone } from 'react-icons/bs';

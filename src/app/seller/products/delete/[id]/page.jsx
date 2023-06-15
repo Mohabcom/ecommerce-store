@@ -1,6 +1,6 @@
 'use client';
-import Spinner from '@/components/seller/Spinner/Spinner';
-import getProducts from '@/utils/getProducts';
+import Spinner from '../../../../../components/seller/Spinner/Spinner';
+import getProducts from '../../../../../utils/getProducts';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

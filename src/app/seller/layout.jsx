@@ -1,10 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Logo from '@/components/seller/Logo/Logo';
-import SellerNav from '@/components/seller/SellerNav/SellerNav';
+import Logo from '../../components/seller/Logo/Logo';
+import SellerNav from '../../components/seller/SellerNav/SellerNav';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import PaddingContainer from '@/components/PaddingContainer/PaddingContainer';
+import PaddingContainer from '../../components/PaddingContainer/PaddingContainer';
 
 export default function layout({ children }) {
     const [isNavActive, setIsNavActive] = useState(false);

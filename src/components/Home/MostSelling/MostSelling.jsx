@@ -1,6 +1,6 @@
-import PaddingContainer from '@/components/PaddingContainer/PaddingContainer';
-import ProductsSwiper from '@/components/ProductsSwiper/ProductsSwiper';
-import getProducts from '@/utils/getProducts';
+import PaddingContainer from '../../../components/PaddingContainer/PaddingContainer';
+import ProductsSwiper from '../../../components/ProductsSwiper/ProductsSwiper';
+import getProducts from '../../../utils/getProducts';
 
 export default async function MostSelling() {
     const products = await getProducts();

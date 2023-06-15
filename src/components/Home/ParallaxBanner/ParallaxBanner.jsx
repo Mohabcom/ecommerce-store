@@ -1,4 +1,4 @@
-import PaddingContainer from '@/components/PaddingContainer/PaddingContainer';
+import PaddingContainer from '../../../components/PaddingContainer/PaddingContainer';
 
 export default function ParallaxBanner() {
     return (

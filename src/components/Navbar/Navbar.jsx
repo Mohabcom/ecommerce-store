@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
     AiOutlineClose,
     AiOutlineDown,
@@ -8,10 +8,7 @@ import {
     AiOutlineSearch,
     AiOutlineShoppingCart,
 } from 'react-icons/ai';
-import { BsTelephone } from 'react-icons/bs';
 import PaddingContainer from '../PaddingContainer/PaddingContainer';
-import { useSession } from 'next-auth/react';
-import { categories } from '@/data/categories';
 import NavbarAccount from './NavbarAccount/NavbarAccount';
 import NavbarSearch from './NavbarSearch/NavbarSearch';
 import LanguageBar from './LanguageBar/LanguageBar';
