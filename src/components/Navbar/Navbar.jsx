@@ -40,7 +40,7 @@ export default function Navbar() {
                         <div
                             className={`${
                                 searchActive
-                                    ? 'opacity-0 translate-x-[300px] ml-[-400px] transition-all ease-in-out duration-500 '
+                                    ? 'opacity-0 translate-x-[300px] ml-[-400px] transition-all ease-in-out duration-500 -z-50'
                                     : 'opacity-100 transition-all ease-in-out duration-500'
                             } flex gap-8 items-center`}
                         >
