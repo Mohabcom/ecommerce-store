@@ -6,7 +6,7 @@ import Image from 'next/image';
 export default function TopCategories() {
     return (
         <section>
-            <PaddingContainer className="p-8 flex flex-col lg:gap-[3vh]">
+            <PaddingContainer className="p-8 flex flex-col 2xl:gap-[3vh]">
                 <h2 className="text-2xl lg:text-[3vh] font-bold mb-4">
                     Shop Our Top Categories
                 </h2>
@@ -19,7 +19,7 @@ export default function TopCategories() {
                                 className="w-1/3 sm:w-1/4 lg:w-1/12 grow overflow-hidden"
                                 delay={index / 20}
                             >
-                                <div className="bg-gray-200 rounded-lg min-h-[250px] sm:min-h-[300px] lg:h-[30vh] lg:min-h-[300px] overflow-hidden hover:cursor-pointer select-none">
+                                <div className="bg-gray-200 rounded-lg min-h-[250px] sm:min-h-[300px] 2xl:h-[30vh] 2xl:min-h-[300px] overflow-hidden hover:cursor-pointer select-none">
                                     <Image
                                         src={category.image}
                                         alt={category.name}
