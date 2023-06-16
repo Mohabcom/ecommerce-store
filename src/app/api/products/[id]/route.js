@@ -1,6 +1,5 @@
 import connect from '../../../../lib/mongoose';
 import { Product } from '../../../../models/Product';
-import axios from 'axios';
 import { NextResponse } from 'next/server';
 
 export const GET = async (request) => {
@@ -9,7 +8,7 @@ export const GET = async (request) => {
     const id = request.url.split('/products/')[1];
     // Get One Product
     try {
-        const product = await Product.findOne({ _id: id });
+        const product = await Product.findOne({ _id: id }).populate('categoryWithParents')
         return new NextResponse(JSON.stringify(product), {
             status: 200,
         });

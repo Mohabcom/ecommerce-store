@@ -1,6 +1,8 @@
 import connect from '../../../lib/mongoose';
+import { Category } from '../../../models/Category';
 import { Product } from '../../../models/Product';
 import { NextResponse } from 'next/server';
+import { createCategoryWithParents } from '../../../utils/createCategoryWithParents';
 
 export const GET = async (request) => {
     await connect();
@@ -22,25 +24,23 @@ export const POST = async (request) => {
     try {
         const { title, category, description, price, images, properties } =
             await request.json();
-        console.log({
-            title,
-            category,
-            description,
-            price,
-            images,
-            properties,
-        });
+
+        // create categoryWithParents
+        let categoryWithParents = await createCategoryWithParents(category);
+        //
 
         let updatedCategory = null;
         if (category) updatedCategory = category;
         const productDoc = await Product.create({
             title,
-            category: updatedCategory,
             description,
             price,
             images,
             properties,
+            category: updatedCategory,
+            categoryWithParents,
         });
+
         return new NextResponse(JSON.stringify(productDoc), {
             status: 201,
         });
@@ -55,6 +55,11 @@ export const PUT = async (request) => {
     try {
         const { title, category, description, price, images, properties, _id } =
             await request.json();
+        const oldProduct = await Product.findOne({ _id });
+        let newCategoryWithParents;
+        if (oldProduct.category == category) {
+            newCategoryWithParents = await createCategoryWithParents(category);
+        }
         let updatedCategory = null;
         if (category) updatedCategory = category;
         const product = await Product.findOneAndUpdate(
@@ -68,6 +73,7 @@ export const PUT = async (request) => {
                 price,
                 images,
                 properties,
+                categoryWithParents: newCategoryWithParents,
             },
             { new: true },
         );
