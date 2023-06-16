@@ -2,6 +2,7 @@ import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { RxPerson } from 'react-icons/rx';
+import { toast } from 'react-toastify';
 
 export default function NavbarAccount() {
     const session = useSession();
@@ -17,10 +18,10 @@ export default function NavbarAccount() {
                 accountDropdown.classList.add('invisible');
             }, 150);
         } else {
-                accountDropdown.classList.add('visible');
+            accountDropdown.classList.add('visible');
         }
     }, [accountActive]);
-    
+
     // Handling Click Outside of Dropdown
     useEffect(() => {
         const handler = (event) => {
@@ -70,7 +71,10 @@ export default function NavbarAccount() {
                         <div className="w-full border-t border rounded border-gray-900" />
                         <button
                             className="hover:text-red-700 transition-all"
-                            onClick={() => signOut()}
+                            onClick={async () => {
+                                await signOut();
+                                toast.success('Signed out successfuly');
+                            }}
                         >
                             Sign Out
                         </button>

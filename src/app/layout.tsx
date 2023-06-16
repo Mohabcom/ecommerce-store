@@ -5,6 +5,8 @@ import { Inter } from 'next/font/google';
 import AuthProvider from '../components/AuthProvider/AuthProvider';
 import { usePathname } from 'next/navigation';
 import Footer from '../components/Footer/Footer';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,10 +24,12 @@ export default function RootLayout({ children }) {
                     {/* <div className="w-screen h-screen overflow-x-hidden bg-gray-800 text-white"> */}
                     {pathname.includes('/seller') ? (
                         <div className="w-screen h-screen overflow-x-hidden">
+                            <ToastContainer />
                             {children}
                         </div>
                     ) : (
                         <div className="w-screen h-screen overflow-x-hidden">
+                            <ToastContainer />
                             <Navbar />
                             {children}
                             <Footer />

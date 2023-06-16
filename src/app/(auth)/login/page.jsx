@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { toast } from 'react-toastify';
 
 export default function Login({ searchParams }) {
     const session = useSession();
@@ -26,7 +27,10 @@ export default function Login({ searchParams }) {
                 callbackUrl: '/',
             });
             const session = await getSession();
-            if (status.ok) router.push(status.url);
+            if (status.ok) {
+                router.push(status.url);
+                toast.success(`Logged in as ${session.user?.email}`);
+            }
         },
         validate: login_validate,
     });
