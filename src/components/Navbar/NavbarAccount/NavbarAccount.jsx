@@ -51,7 +51,7 @@ export default function NavbarAccount() {
                     accountActive
                         ? 'opacity-100 top-[220%] transition-all'
                         : 'opacity-0 top-[290%] transition-all'
-                } absolute min-w-[200%] right-1/2 translate-x-1/2 bg-white p-4 rounded-xl z-50`}
+                } absolute min-w-[200%] right-1/2 translate-x-1/2 bg-white p-4 rounded-xl z-50 border-gray-200 border shadow-2xl`}
                 ref={accountActiveRef}
             >
                 {session.status === 'authenticated' ? (

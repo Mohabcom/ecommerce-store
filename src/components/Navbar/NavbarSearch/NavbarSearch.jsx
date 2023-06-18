@@ -58,7 +58,7 @@ export default function NavbarSearch({
                         searchActive
                             ? 'opacity-100 top-[150%] translate-x-4 transition-all ease-in-out duration-2b00'
                             : 'opacity-0 top-[200%] -translate-x-4 transition-all ease-in-out duration-200'
-                    } absolute w-full right-3 bg-white p-4 rounded-xl z-50`}
+                    } absolute w-full right-3 bg-white p-4 rounded-xl z-50 border-gray-200 border shadow-2xl`}
                 >
                     <h2 className="text-lg">Popular Categories</h2>
                     <div className="w-full border-t border-black mb-4" />
